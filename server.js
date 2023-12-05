@@ -70,7 +70,7 @@ app.post('/submit-contact-form', async (req, res) => {
             <p class="label">Purpose:</p>
             <p>${req.body.subject}</p>
             
-            <p class="label">Registration Number:</p>
+            <p class="label">Description:</p>
             <p>${req.body.des}</p>
           </div>
         </body>
