@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
-// const Email = require('./email'); 
+require('dotenv').config();
 const app = express();
 // Enable CORS
 app.use(cors());
@@ -13,21 +13,70 @@ const PORT = process.env.PORT || 5000;
 // Handle contact form submissions
 app.post('/submit-contact-form', async (req, res) => {
   try {
-    // const emailBody = generateContactEmail(req.body);
+    // const emailBody = <Email/>;
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: "mail.afrimartcommerce.com",
+      port: '198.38.83.196',
+      secure: false,
       auth: {
-        user: 'goldick60@gmail.com',
-        pass: 'edwp vzgp jece uxkh',
+        user: process.env.SMTP_EMAIL,
+        pass: process.env.SMTP_PASSWORD,
       },
     });
 
     const mailOptions = {
-      from: 'goldick60@gmail.com',
-      to: 'golddick60@gmail.com, Support@afrimart.biz ',
+      from: process.env.SMTP_EMAIL,
+      to: 'Support@afrimart.biz , saas@afrimartcommerce.com',
       subject: 'Contact Form Submission',
-      // html: emailBody,
-       text: JSON.stringify(req.body, null, 2),
+      html: `
+      <html>
+        <head>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              background-color: #f4f4f4;
+              color: #333;
+            }
+            .container {
+              max-width: 600px;
+              margin: 0 auto;
+              padding: 20px;
+              background-color: #fff;
+              border-radius: 5px;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+              color: orange;
+              font-size:20px;
+            }
+            .label {
+              font-weight: bold;
+              font-size:15;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <h1>Email from Contact Form</h1>
+            <p>Here is the information submitted through the form:</p>
+            
+            <p class="label"> Name:</p>
+            <p>${req.body.cname}</p>
+            
+            <p class="label">Email:</p>
+            <p>${req.body.email}</p>
+            
+           
+            <p class="label">Purpose:</p>
+            <p>${req.body.subject}</p>
+            
+            <p class="label">Registration Number:</p>
+            <p>${req.body.des}</p>
+          </div>
+        </body>
+      </html>
+    `,
+      //  text: JSON.stringify(req.body, null, 2),
     };
 
     await transporter.sendMail(mailOptions);
@@ -42,14 +91,13 @@ app.post('/submit-contact-form', async (req, res) => {
  
 app.post('/submit-form', async (req, res) => {
   try { 
-     // Generate the email body using the template 
-    // const emailBody = Email(req.body);
-
     const transporter = nodemailer.createTransport({
-      service: 'gmail',  
-      auth: {   
-        user: 'goldick60@gmail.com',
-        pass: 'edwp vzgp jece uxkh',
+      host: "mail.afrimartcommerce.com",
+      port: '198.38.83.196',
+      secure: false,
+      auth: {
+        user: process.env.SMTP_EMAIL,
+        pass: process.env.SMTP_PASSWORD,
       },
     });
 
@@ -57,8 +105,8 @@ app.post('/submit-form', async (req, res) => {
     // await transporter.verify();
 
     const mailOptions = {
-      from: 'goldick60@gmail.com',
-      to: 'golddick60@gmail.com , Support@afrimart.biz ',
+      from: process.env.SMTP_EMAIL,
+      to: 'Support@afrimart.biz,saas@afrimartcommerce.com',
       subject: 'Enterprise Form',
       // html: emailBody,
       // text: 'hello word',
@@ -162,9 +210,7 @@ app.post('/submit-form', async (req, res) => {
       res.status(500).json({ message: 'Failed to send email.' });
     }
 
-    // console.error('Error sending email:', error);
-    //   res.status(500).json({ message: 'Failed to send email.' });
-    
+
   }
 });
 
