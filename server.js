@@ -151,7 +151,7 @@ app.post('/submit-form', async (req, res) => {
     };
 
     await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: 'Email sent successfully!' });
+    res.status(200).json({ message: 'Email sent successfully!!' });
   } catch (error) {
     if (error.code === 'EAUTH') {
       // Handle authentication errors
