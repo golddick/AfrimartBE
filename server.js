@@ -152,11 +152,13 @@ app.post('/submit-form', async (req, res) => {
            
             <p class="label">Business Type:</p>
             <p>${req.body.businessType}</p>
+
+            <p class="label">Turn over</p>
+            <p>${req.body.annualTurnover}</p>
             
             <p class="label">Registration Number:</p>
             <p>${req.body.registrationNo}</p>
             
-           
             <p class="label">Business Address:</p>
             <p>${req.body.businessAddress}</p>
             
@@ -166,10 +168,6 @@ app.post('/submit-form', async (req, res) => {
            
             <p class="label">Employees:</p>
             <p>${req.body.employees}</p>
-            
-            <p class="label"Annual Turnover:</p>
-            <p>${req.body.annualTurnover}</p>
-            
            
             <p class="label">Country:</p>
             <p>${req.body.country}</p>
