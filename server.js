@@ -66,6 +66,9 @@ app.post('/submit-contact-form', async (req, res) => {
             <p class="label">Email:</p>
             <p>${req.body.email}</p>
             
+            <p class="label">Phone Number:</p>
+            <p>${req.body.pNumber}</p>
+            
            
             <p class="label">Purpose:</p>
             <p>${req.body.subject}</p>
